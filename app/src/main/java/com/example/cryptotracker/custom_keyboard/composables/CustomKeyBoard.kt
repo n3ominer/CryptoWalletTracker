@@ -15,8 +15,9 @@ import com.example.cryptotracker.custom_keyboard.KeyEvent
 
 @Composable
 fun CustomKeyBoard(
+    modifier: Modifier = Modifier,
     onKeyClicked: (KeyEvent) -> Unit,
-    modifier: Modifier = Modifier
+    isShifted: Boolean = false
 ) {
     Column(modifier = modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         // Ensemble des lignes de lettres / touches spéciales
@@ -26,7 +27,7 @@ fun CustomKeyBoard(
             val row1 = listOf('a','z','e','r','t','y','u','i','o','p')
             for(c in row1) {
                 KeyButton(
-                    label = c.toString(),
+                    label = if(isShifted) c.uppercaseChar().toString() else c.toString(),
                     onClick = {
                         onKeyClicked(KeyEvent.Char(c = c))
                     },
@@ -39,7 +40,7 @@ fun CustomKeyBoard(
             val row2 = listOf('q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm')
             for(c in row2) {
                 KeyButton(
-                    label = c.toString(),
+                    label = if(isShifted) c.uppercaseChar().toString() else c.toString(),
                     onClick = {
                         onKeyClicked(KeyEvent.Char(c = c))
                     },
@@ -58,7 +59,7 @@ fun CustomKeyBoard(
             val row3 = listOf('w', 'x', 'c', 'v', 'b', 'n')
             for(c in row3) {
                 KeyButton(
-                    label = c.toString(),
+                    label = if(isShifted) c.uppercaseChar().toString() else c.toString(),
                     onClick = {
                         onKeyClicked(KeyEvent.Char(c = c))
                     },
@@ -68,7 +69,7 @@ fun CustomKeyBoard(
 
             KeyButton(
                 label = "Supp",
-                onClick = { onKeyClicked(KeyEvent.Shift) },
+                onClick = { onKeyClicked(KeyEvent.BackSpace) },
                 modifier = Modifier.padding(4.dp)
             )
         }
@@ -82,13 +83,13 @@ fun CustomKeyBoard(
 
             KeyButton(
                 label = "Space",
-                onClick = { onKeyClicked(KeyEvent.Shift) },
+                onClick = { onKeyClicked(KeyEvent.Space) },
                 modifier = Modifier.weight(3f)
             )
 
             KeyButton(
                 label = "Enter",
-                onClick = { onKeyClicked(KeyEvent.Shift) },
+                onClick = { onKeyClicked(KeyEvent.Enter) },
                 modifier = Modifier.weight(1f)
             )
         }
