@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.cryptotracker.custom_keyboard.composables.CustomKeyBoard
 import com.example.cryptotracker.ui.theme.CryptoTrackerTheme
 
 
@@ -25,11 +26,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    Counter(
-                        count = count.intValue,
-                        increment = { count.intValue++ },
-                        decrement = { count.intValue-- },
-                        reset = { count.intValue = 0 }
+                    CustomKeyBoard(
+                        onKeyClicked = { /*Mise à jour du state*/},
+                        modifier = Modifier
                     )
                 }
             }
