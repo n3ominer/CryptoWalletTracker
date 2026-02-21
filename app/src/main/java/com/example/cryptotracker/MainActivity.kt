@@ -3,6 +3,7 @@ package com.example.cryptotracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,10 +17,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cryptotracker.custom_keyboard.KeyEvent
 import com.example.cryptotracker.custom_keyboard.composables.CustomKeyBoard
+import com.example.cryptotracker.ui.screens.home.HomeScreen
 import com.example.cryptotracker.ui.theme.CryptoTrackerTheme
 
 
@@ -27,43 +31,28 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // remember --> Compose : "Remember the value of count"
-            // mutableIntStateOf --> Compose : "This value needs to be observed"
-            val text = rememberSaveable { mutableStateOf("") }
-            val isShifted = rememberSaveable { mutableStateOf(false) }
+            MainContent()
+        }
+    }
+}
 
-            CryptoTrackerTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween ){
-                        OutlinedTextField(
-                            value = text.value,
-                            onValueChange = {},
-                            modifier = Modifier.fillMaxWidth().height(100.dp),
-                            label = { Text("Entrez du text") },
-                            readOnly = true
+@Composable
+fun MainContent() {
+    CryptoTrackerTheme {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFF8E24AA), // Violet foncé
+                            Color(0xFFBA68C8)  // Violet clair
                         )
-
-                        CustomKeyBoard(
-                            isShifted = isShifted.value,
-                            onKeyClicked = { key ->
-                                when(key) {
-                                    KeyEvent.BackSpace -> { if (!text.value.isEmpty()) text.value = text.value.dropLast(1) }
-                                    KeyEvent.Enter -> text.value += "\n"
-                                    KeyEvent.Shift -> isShifted.value = !isShifted.value
-                                    KeyEvent.Space -> text.value += " "
-                                    is KeyEvent.Char -> {
-                                        val charToInsert = if(isShifted.value) key.c.uppercaseChar() else key.c
-                                        text.value += charToInsert
-                                        isShifted.value = false
-                                    }
-                                }
-                            },
-                        )
-                    }
-                }
-            }
+                    )
+                ),
+            color = Color.Transparent
+        ) {
+            HomeScreen()
         }
     }
 }
@@ -71,23 +60,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun GreetingPreview() {
-    CryptoTrackerTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween ){
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth().height(100.dp),
-                    label = { Text("Entrez du text") }
-                )
-
-
-                CustomKeyBoard(
-                    onKeyClicked = { /*Mise à jour du state*/ },
-                )
-            }
-        }
-    }
+    MainContent()
 }

@@ -1,18 +1,21 @@
 package com.example.cryptotracker.ui.screens.home.composables
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,30 +33,41 @@ import com.example.cryptotracker.ui.theme.CryptoTrackerTheme
 @Composable
 fun WalletHomeHeader() {
     Row(
-        modifier = Modifier.fillMaxSize().padding(20.dp).height(50.dp),
+        modifier = Modifier.fillMaxWidth().padding(20.dp).height(50.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Surface(
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(50.dp),
                 shape = CircleShape,
                 color = Color.Cyan
             ) {
                 Box(
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("🎅🏿", fontSize = 25.sp)
+                    Text("🎅🏿", fontSize = 28.sp)
                 }
             }
 
             Spacer(modifier = Modifier.width(12.dp))
-            Text("big.samuel", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+            Text("big.samuel", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(R.drawable.outline_qr_code_2_24), contentDescription = "", modifier = Modifier.height(50.dp))
+            Icon(
+                painter = painterResource(R.drawable.outline_qr_code_2_24),
+                contentDescription = "",
+                modifier = Modifier.size(32.dp),
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
             Spacer(modifier = Modifier.width(12.dp))
-            Icon(painter = painterResource(R.drawable.outline_notifications_unread_24), contentDescription = "")
+            Icon(
+                painter = painterResource(R.drawable.outline_notifications_unread_24),
+                contentDescription = "",
+                modifier = Modifier.size(32.dp),
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
 
     }
@@ -63,7 +77,7 @@ fun WalletHomeHeader() {
 @Composable
 fun WalletHomeHeaderPreview() {
     CryptoTrackerTheme {
-        Surface {
+        Surface(color = Color.Black) {
             WalletHomeHeader()
         }
     }
