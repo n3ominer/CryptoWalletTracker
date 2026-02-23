@@ -1,4 +1,4 @@
-package com.example.cryptotracker.ui.screens.home.composables
+package com.example.cryptotracker.presentation.ui.screen.home.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
