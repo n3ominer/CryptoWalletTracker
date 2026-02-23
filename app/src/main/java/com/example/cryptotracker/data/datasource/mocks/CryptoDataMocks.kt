@@ -8,19 +8,19 @@ fun getCryptoList(): List<Crypto> {
     return listOf(
         Crypto(
             name = "Bitcoin",
-            symbol = "",
+            symbol = "b1",
             amount = 2.21,
             fiatValue = "65853,44",
             chartTrend = "down",
-            iconColor = Color(0xFEA01B)
+            iconColor = Color.Yellow
         ),
         Crypto(
-            name = "Bitcoin",
-            symbol = "",
+            name = "Ethereum",
+            symbol = "B2",
             amount = 2.21,
-            fiatValue = "65853,44",
+            fiatValue = "2000",
             chartTrend = "down",
-            iconColor = Color(0xFEA01B)
+            iconColor = Color.Blue
         )
     )
 }

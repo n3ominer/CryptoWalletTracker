@@ -7,11 +7,10 @@ data class Crypto(
     val amount: Double,
     val fiatValue: String,
     val chartTrend: String,
+    val fluctuationValue: Double = 2.00,
     val imgUrl: String = "",
     val iconColor: Color
 ) {
-
-    val a = 1
     val formattedPrice: String
         get() = String.format("$%.2f", fiatValue)
 }
