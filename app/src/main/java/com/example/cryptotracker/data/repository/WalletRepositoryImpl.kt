@@ -9,7 +9,7 @@ class WalletRepositoryImpl(
 ): WalletRepository {
 
 
-    override fun getCryptos(): List<Crypto> {
+    override fun getCryptos(): Wallet {
         // TODO: Implement data fetch from Retrofit HTTP Client
         return local.getWallet() // MOCK
     }
