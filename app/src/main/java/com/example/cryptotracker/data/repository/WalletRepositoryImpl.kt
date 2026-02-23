@@ -5,7 +5,7 @@ import com.example.cryptotracker.domain.repository.WalletRepository
 class WalletRepositoryImpl(
     // Remote Data source --> Notre client HTTP
     // Local Data Source --> Local Room DB
-    val local: LocalDataSource
+    val local: LocalDataSource = LocalDataSource()
 ): WalletRepository {
 
 

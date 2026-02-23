@@ -1,6 +1,8 @@
 package com.example.cryptotracker.presentation.ui.screen.home
 
 import Crypto
+import Wallet
+import WalletViewModel
 import android.view.Surface
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +24,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -33,11 +37,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cryptotracker.R
 import com.example.cryptotracker.data.datasource.mocks.getCryptoList
+import com.example.cryptotracker.domain.usecase.WalletStateUi
 import com.example.cryptotracker.presentation.ui.screen.home.composables.ButtonActionRow
 import com.example.cryptotracker.presentation.ui.screen.home.composables.WalletHomeHeader
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: WalletViewModel = WalletViewModel(),
+    // TP 2 --> Gestion de Navigation
+    onCryptoClick: () -> Unit
+) {
+    val walletUiState: WalletStateUi by viewModel.walletUiState.collectAsState()
+
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
@@ -58,14 +70,31 @@ fun HomeScreen() {
                     )
                 )
         ) {
-            LazyColumn {
-                items(
-                    getCryptoList(),
-                    key = { it.symbol }
-                ) { crypto ->
-                    CryptoItem(crypto)
+            when(walletUiState) {
+                is WalletStateUi.Success -> {
+                    val wallet = ((walletUiState as WalletStateUi.Success).crypto)
+                    SuccessContent(wallet)
+                }
+                is WalletStateUi.Error -> {
+
+                }
+                WalletStateUi.Loading -> {
+                    
                 }
             }
+        }
+    }
+}
+
+
+@Composable
+fun SuccessContent(wallet: Wallet) {
+    LazyColumn {
+        items(
+            getCryptoList(),
+            key = { it.symbol }
+        ) { crypto ->
+            CryptoItem(crypto)
         }
     }
 }

@@ -1,18 +1,14 @@
 package com.example.cryptotracker.domain.usecase
 
-import Crypto
-import Holding
-import Wallet
-import WalletRepositoryImpl
 import com.example.cryptotracker.domain.repository.WalletRepository
 
 class GetWalletCryptosUseCase (val repository: WalletRepository) {
 
-    /*suspend*/ operator fun invoke(): CrytpoResult {
+    /*suspend*/ operator fun invoke(): WalletStateUi {
         if (repository.getCryptos().holdings.isEmpty()) {
-            return CrytpoResult.Error(message = "Pas de cryptos dans le wallet")
+            return WalletStateUi.Error(message = "Pas de cryptos dans le wallet")
         } else {
-            return CrytpoResult.Success(repository.getCryptos())
+            return WalletStateUi.Success(repository.getCryptos())
         }
     }
 
