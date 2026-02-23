@@ -33,7 +33,7 @@ class WalletViewModel(
 
         viewModelScope.launch {
             delay(5000)
-            
+
             // Récupère le resultat
             val result: WalletStateUi = getWalletCryptosUseCase()
 
