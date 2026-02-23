@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CryptoTracker</string>
+    <string name="summary_button_in_bottom_nav_bar">Summary button in bottom nav bar</string>
 </resources>

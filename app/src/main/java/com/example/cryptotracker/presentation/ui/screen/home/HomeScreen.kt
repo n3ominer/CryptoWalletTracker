@@ -14,7 +14,7 @@ import com.example.cryptotracker.presentation.ui.screen.home.composables.WalletH
 
 @Composable
 fun HomeScreen() {
-    Column {
+    Column(modifier = Modifier.fillMaxSize()) {
         WalletHomeHeader()
         ButtonActionRow()
     }
