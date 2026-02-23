@@ -3,7 +3,7 @@ package com.example.cryptotracker.presentation.ui.screen.home
 import Crypto
 import Wallet
 import WalletViewModel
-import android.view.Surface
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -76,11 +77,10 @@ fun HomeScreen(
                     SuccessContent(wallet)
                 }
                 is WalletStateUi.Error -> {
-
+                    val error = (walletUiState as WalletStateUi.Error).message
+                    ErrorContent(error)
                 }
-                WalletStateUi.Loading -> {
-                    
-                }
+                WalletStateUi.Loading -> LoadingContent()
             }
         }
     }
@@ -95,6 +95,42 @@ fun SuccessContent(wallet: Wallet) {
             key = { it.symbol }
         ) { crypto ->
             CryptoItem(crypto)
+        }
+    }
+}
+
+@Composable
+fun LoadingContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            color = Color.Red
+        )
+    }
+}
+
+@Composable
+fun ErrorContent(message: String) {
+    Box() {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                "Error",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(Modifier.height(10.dp))
+
+            Text(
+                "Error",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }
@@ -170,6 +206,7 @@ fun CryptoItem(
 
 
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview
 @Composable
 fun HomeScreenPreview() {
@@ -186,6 +223,6 @@ fun HomeScreenPreview() {
             ),
         color = Color.Transparent
     ) {
-        HomeScreen()
+        HomeScreen(WalletViewModel() , {})
     }
 }

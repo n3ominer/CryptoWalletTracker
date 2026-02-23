@@ -1,5 +1,6 @@
 package com.example.cryptotracker
 
+import WalletViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,14 +23,15 @@ import com.example.cryptotracker.presentation.ui.theme.CryptoTrackerTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val vm = WalletViewModel()
         setContent {
-            MainContent()
+            MainContent(vm)
         }
     }
 }
 
 @Composable
-fun MainContent() {
+fun MainContent(vm: WalletViewModel = WalletViewModel()) {
     CryptoTrackerTheme {
         Surface(
             modifier = Modifier
@@ -47,7 +49,10 @@ fun MainContent() {
             Box(
                 contentAlignment = Alignment.BottomCenter
             ) {
-                HomeScreen()
+                HomeScreen(
+                    vm,
+                    onCryptoClick = {}
+                )
                 BottomNavigationBar(
                     onSwitchCryptoClick = {},
                     onSummaryCLick = {},
