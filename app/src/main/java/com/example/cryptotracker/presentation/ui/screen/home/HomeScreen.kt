@@ -5,6 +5,7 @@ import Wallet
 import WalletViewModel
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,10 +47,9 @@ import com.example.cryptotracker.presentation.ui.screen.home.composables.WalletH
 fun HomeScreen(
     viewModel: WalletViewModel = WalletViewModel(),
     // TP 2 --> Gestion de Navigation
-    onCryptoClick: () -> Unit
+    onCryptoClick: (String) -> Unit
 ) {
     val walletUiState: WalletStateUi by viewModel.walletUiState.collectAsState()
-
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -74,7 +74,10 @@ fun HomeScreen(
             when(walletUiState) {
                 is WalletStateUi.Success -> {
                     val wallet = ((walletUiState as WalletStateUi.Success).crypto)
-                    SuccessContent(wallet)
+                    SuccessContent(
+                        wallet,
+                        onCryptoClick
+                    )
                 }
                 is WalletStateUi.Error -> {
                     val error = (walletUiState as WalletStateUi.Error).message
@@ -88,13 +91,16 @@ fun HomeScreen(
 
 
 @Composable
-fun SuccessContent(wallet: Wallet) {
+fun SuccessContent(
+    wallet: Wallet,
+    onCryptoClick: (String) -> Unit
+) {
     LazyColumn {
         items(
             getCryptoList(),
             key = { it.symbol }
         ) { crypto ->
-            CryptoItem(crypto)
+            CryptoItem(crypto, onCryptoClick)
         }
     }
 }
@@ -138,13 +144,17 @@ fun ErrorContent(message: String) {
 
 @Composable
 fun CryptoItem(
-    crypto: Crypto
+    crypto: Crypto,
+    onClick: (String) -> Unit
 ) {
     // Parent le plus exterieur
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 12.dp),
+            .padding(horizontal = 20.dp, vertical = 12.dp)
+            .clickable {
+                onClick(crypto.name)
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
