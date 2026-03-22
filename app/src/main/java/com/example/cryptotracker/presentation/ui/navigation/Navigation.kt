@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.cryptotracker.presentation.ui.navigation.Screen
-import com.example.cryptotracker.presentation.ui.screen.detail.DetailScreen
+import com.example.cryptotracker.presentation.ui.screen.detail.CryptoDetailScreen
 import com.example.cryptotracker.presentation.ui.screen.home.HomeScreen
 
 @Composable
@@ -41,7 +41,12 @@ fun AppNavigation(
             )
         ) { backstackEntry ->
             val nameParam = backstackEntry.arguments?.getString("name") ?: return@composable
-            DetailScreen(nameParam)
+            CryptoDetailScreen(
+                nameParam,
+                {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

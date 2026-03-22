@@ -5,10 +5,10 @@ import com.example.cryptotracker.domain.repository.WalletRepository
 class GetWalletCryptosUseCase (val repository: WalletRepository) {
 
     /*suspend*/ operator fun invoke(): WalletStateUi {
-        if (repository.getCryptos().holdings.isEmpty()) {
+        if (repository.getWallet().holdings.isEmpty()) {
             return WalletStateUi.Error(message = "Pas de cryptos dans le wallet")
         } else {
-            return WalletStateUi.Success(repository.getCryptos())
+            return WalletStateUi.Success(repository.getWallet())
         }
     }
 

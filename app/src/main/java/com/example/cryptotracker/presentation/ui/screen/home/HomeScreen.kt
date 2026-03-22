@@ -37,6 +37,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import androidx.compose.ui.draw.clip
 import com.example.cryptotracker.R
 import com.example.cryptotracker.data.datasource.mocks.getCryptoList
 import com.example.cryptotracker.domain.usecase.WalletStateUi
@@ -160,21 +162,13 @@ fun CryptoItem(
     ) {
         Row {
             // Icone de la crypto
-
-            Surface(
-                modifier = Modifier.size(40.dp),
-                shape = CircleShape,
-                color = Color.Gray
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(
-                        ""
-                    )
-                }
-            }
+            AsyncImage(
+                model = crypto.imgUrl,
+                contentDescription = "Logo de la crypto",
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+            )
             Spacer(Modifier.width(8.dp))
 
             // Column pour afficher Nom, Prix de marché, fluctuation
