@@ -1,5 +1,6 @@
 import com.example.cryptotracker.data.datasource.local.LocalDataSource
 import com.example.cryptotracker.data.datasource.mocks.getCryptoList
+import com.example.cryptotracker.domain.model.CryptoDetail
 import com.example.cryptotracker.domain.repository.WalletRepository
 
 class WalletRepositoryImpl(
@@ -30,5 +31,15 @@ class WalletRepositoryImpl(
             holdings
         )
     }
+
+    override suspend fun getCryptoDetail(cryptoId: String): CryptoDetail? {
+        val result = remote.getCryptoDetail(cryptoId)
+        if(result.isSuccess) {
+            return result.getOrNull()
+        }
+
+        return null
+    }
+
 
 }

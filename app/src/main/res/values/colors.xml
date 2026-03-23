@@ -11,4 +11,5 @@
     <color name="orange_btc">#FEA01B</color>
 
     <color name="crypto_up_fluctuation">#168319</color>
+    <color name="crypto_down_fluctuation">#F91E11</color>
 </resources>

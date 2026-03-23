@@ -1,6 +1,7 @@
 package com.example.cryptotracker.domain.usecase
 
 import com.example.cryptotracker.domain.repository.WalletRepository
+import com.example.cryptotracker.domain.usecase.state.WalletStateUi
 
 class GetWalletCryptosUseCase (val repository: WalletRepository) {
 

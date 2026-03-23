@@ -1,8 +1,10 @@
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cryptotracker.domain.usecase.WalletStateUi
+import com.example.cryptotracker.domain.usecase.GetCryptoDetailUseCase
+import com.example.cryptotracker.domain.usecase.state.WalletStateUi
 import com.example.cryptotracker.domain.usecase.GetWalletCryptosUseCase
+import com.example.cryptotracker.domain.usecase.state.CryptoDetailStateUi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,6 +18,12 @@ class WalletViewModel(
             WalletRepositoryImpl(
                 remote = RemoteCryptoDataSource(CoinGeckoApiClient.coinGeckoCryptoService)
             )
+        ),
+    val getCryptoDetailUseCase: GetCryptoDetailUseCase =
+        GetCryptoDetailUseCase(
+            WalletRepositoryImpl(
+                remote = RemoteCryptoDataSource(CoinGeckoApiClient.coinGeckoCryptoService)
+            )
         )
 ): ViewModel() {
 
@@ -24,6 +32,11 @@ class WalletViewModel(
 
     // UI State public Read only
     val walletUiState: StateFlow<WalletStateUi> = _walletUiState.asStateFlow()
+
+    private val _detailUiState = MutableStateFlow<CryptoDetailStateUi>(CryptoDetailStateUi.Loading)
+
+    // UI State public Read only
+    val detailUiState: StateFlow<CryptoDetailStateUi> = _detailUiState.asStateFlow()
 
     // Fonction init
     init {
@@ -44,6 +57,16 @@ class WalletViewModel(
 
             // Mettre à jour l'état à nouveau avec le nouveau state
             _walletUiState.value = result
+        }
+    }
+
+    fun getCryptoDetailFor(id: String) {
+        _detailUiState.value = CryptoDetailStateUi.Loading
+
+        viewModelScope.launch {
+            val result: CryptoDetailStateUi = getCryptoDetailUseCase(id)
+
+            _detailUiState.value = result
         }
     }
 

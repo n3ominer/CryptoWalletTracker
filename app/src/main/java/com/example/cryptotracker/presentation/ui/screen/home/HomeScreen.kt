@@ -39,9 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
 import com.example.cryptotracker.R
 import com.example.cryptotracker.data.datasource.mocks.getCryptoList
-import com.example.cryptotracker.domain.usecase.WalletStateUi
+import com.example.cryptotracker.domain.usecase.state.WalletStateUi
 import com.example.cryptotracker.presentation.ui.screen.home.composables.ButtonActionRow
 import com.example.cryptotracker.presentation.ui.screen.home.composables.WalletHomeHeader
 
@@ -182,7 +183,14 @@ fun CryptoItem(
                 Row {
                     Text(crypto.fiatValue)
                     Spacer(Modifier.width(8.dp))
-                    Text("${crypto.fluctuationValue}%")
+                    Text(
+                        "%.2f%%".format(crypto.fluctuationValue),
+                        color = if(crypto.chartTrend == "up"){
+                            colorResource(R.color.crypto_up_fluctuation)
+                        } else {
+                            colorResource(R.color.crypto_down_fluctuation)
+                        }
+                    )
                 }
             }
         }

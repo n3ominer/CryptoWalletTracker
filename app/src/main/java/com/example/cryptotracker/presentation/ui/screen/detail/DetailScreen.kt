@@ -36,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cryptotracker.domain.usecase.WalletStateUi
+import com.example.cryptotracker.domain.usecase.state.WalletStateUi
 import com.example.cryptotracker.presentation.ui.screen.home.ErrorContent
 import com.example.cryptotracker.presentation.ui.screen.home.LoadingContent
 

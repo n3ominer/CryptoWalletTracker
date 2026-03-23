@@ -1,7 +1,6 @@
-package com.example.cryptotracker.data.remote.dto
+package com.example.cryptotracker.data.remote.dto.crypto
 
 import Crypto
-import androidx.compose.ui.graphics.Color
 import com.google.gson.annotations.SerializedName
 
 data class CryptoDto(
@@ -26,7 +25,7 @@ fun CryptoDto.toDomainModel(): Crypto =
          fiatValue = this.currentPrice.toString(),
          symbol = this.symbol,
          imgUrl = this.image ?: "",
-         fluctuationValue = this.priceChange24h,
+         fluctuationValue = this.priceChangePercentage24h,
          marketCapPosition = this.marketCapRank,
          amount = 0.0,
          chartTrend = if(this.priceChangePercentage24h < 0) "down" else "up",

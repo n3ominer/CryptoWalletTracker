@@ -1,4 +1,4 @@
-package com.example.cryptotracker.domain.usecase
+package com.example.cryptotracker.domain.usecase.state
 
 import Wallet
 
