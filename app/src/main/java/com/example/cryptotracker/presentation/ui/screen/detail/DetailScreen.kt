@@ -159,7 +159,6 @@ fun DetailContent(
             Surface(
                 modifier = Modifier.size(60.dp),
                 shape = CircleShape,
-                color = crypto.iconColor
             ) {
                 Box(
                     contentAlignment = Alignment.Center,

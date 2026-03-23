@@ -30,5 +30,5 @@ fun CryptoDto.toDomainModel(): Crypto =
          marketCapPosition = this.marketCapRank,
          amount = 0.0,
          chartTrend = if(this.priceChangePercentage24h < 0) "down" else "up",
-         iconColor = Color.Transparent,
+         //iconColor = Color.Transparent,
      )

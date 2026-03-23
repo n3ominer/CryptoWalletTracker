@@ -18,7 +18,7 @@ class LocalDataSource {
                     amount = 2.21,
                     fiatValue = "65853,44",
                     chartTrend = "down",
-                    iconColor = Color.Yellow
+                    //iconColor = Color.Yellow
                 ),
                 2.0
             ),
@@ -29,7 +29,7 @@ class LocalDataSource {
                     amount = 1.5,
                     fiatValue = "2000,44",
                     chartTrend = "down",
-                    iconColor = Color.Yellow
+                    //iconColor = Color.Yellow
                 ),
                 2.0)
             )

@@ -12,7 +12,7 @@ fun getCryptoList(): List<Crypto> {
             amount = 2.21,
             fiatValue = "65853,44",
             chartTrend = "down",
-            iconColor = Color.Yellow
+            //iconColor = Color.Yellow
         ),
         Crypto(
             name = "Ethereum",
@@ -20,7 +20,7 @@ fun getCryptoList(): List<Crypto> {
             amount = 2.21,
             fiatValue = "2000",
             chartTrend = "down",
-            iconColor = Color.Blue
+            //iconColor = Color.Blue
         )
     )
 }
