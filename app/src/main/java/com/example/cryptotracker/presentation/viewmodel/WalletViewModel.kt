@@ -1,6 +1,8 @@
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cryptotracker.data.local.AppDataBase
 import com.example.cryptotracker.domain.usecase.GetCryptoDetailUseCase
 import com.example.cryptotracker.domain.usecase.state.WalletStateUi
 import com.example.cryptotracker.domain.usecase.GetWalletCryptosUseCase
@@ -13,18 +15,8 @@ import kotlinx.coroutines.launch
 
 class WalletViewModel(
     // TODO: Remplacer par de l'injection de dépendenances
-    val getWalletCryptosUseCase: GetWalletCryptosUseCase =
-        GetWalletCryptosUseCase(
-            WalletRepositoryImpl(
-                remote = RemoteCryptoDataSource(CoinGeckoApiClient.coinGeckoCryptoService)
-            )
-        ),
-    val getCryptoDetailUseCase: GetCryptoDetailUseCase =
-        GetCryptoDetailUseCase(
-            WalletRepositoryImpl(
-                remote = RemoteCryptoDataSource(CoinGeckoApiClient.coinGeckoCryptoService)
-            )
-        )
+    var getWalletCryptosUseCase: GetWalletCryptosUseCase,
+    var getCryptoDetailUseCase: GetCryptoDetailUseCase
 ): ViewModel() {
 
     // UI State privé R+W

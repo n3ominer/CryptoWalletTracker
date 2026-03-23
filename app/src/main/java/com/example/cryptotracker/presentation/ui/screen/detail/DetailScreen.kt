@@ -45,7 +45,7 @@ import com.example.cryptotracker.presentation.ui.screen.home.LoadingContent
 fun CryptoDetailScreen(
     cryptoId: String,
     onNavigateBack: () -> Unit,
-    viewModel: WalletViewModel = WalletViewModel()
+    viewModel: WalletViewModel
 ) {
     // Récupérer l'état du crypto detail
     val detailUiState by viewModel.walletUiState.collectAsState()
@@ -260,14 +260,4 @@ fun DetailInfoRow(
             fontWeight = FontWeight.Bold
         )
     }
-}
-
-
-@Preview
-@Composable
-fun DetailScreenComposable() {
-    CryptoDetailScreen(
-        "",
-        {},
-    )
 }

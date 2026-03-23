@@ -1,6 +1,8 @@
 package com.example.cryptotracker
 
 import AppNavigation
+import RemoteCryptoDataSource
+import WalletRepositoryImpl
 import WalletViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,22 +18,46 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.cryptotracker.data.local.AppDataBase
+import com.example.cryptotracker.domain.usecase.GetCryptoDetailUseCase
+import com.example.cryptotracker.domain.usecase.GetWalletCryptosUseCase
 import com.example.cryptotracker.presentation.ui.navigation.composables.BottomNavigationBar
 import com.example.cryptotracker.presentation.ui.screen.home.HomeScreen
 import com.example.cryptotracker.presentation.ui.theme.CryptoTrackerTheme
 
 
 class MainActivity : ComponentActivity() {
+    lateinit var getWalletCryptosUseCase: GetWalletCryptosUseCase
+    lateinit var getCryptoDetailUseCase: GetCryptoDetailUseCase
+    lateinit var vm: WalletViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainContent()
+            injectDependencies()
+            MainContent(vm)
         }
+    }
+
+
+    private fun injectDependencies() {
+        val remoteImpl = WalletRepositoryImpl(
+            remote = RemoteCryptoDataSource(
+                CoinGeckoApiClient.coinGeckoCryptoService,
+                AppDataBase.getInstance(context = this).cryptoDao()
+            )
+        )
+        getWalletCryptosUseCase = GetWalletCryptosUseCase(remoteImpl)
+        getCryptoDetailUseCase = GetCryptoDetailUseCase(remoteImpl)
+        vm = WalletViewModel(
+            getWalletCryptosUseCase = getWalletCryptosUseCase,
+            getCryptoDetailUseCase = getCryptoDetailUseCase
+        )
     }
 }
 
 @Composable
-fun MainContent(vm: WalletViewModel = WalletViewModel()) {
+fun MainContent(vm: WalletViewModel ) {
     CryptoTrackerTheme {
         Surface(
             modifier = Modifier
@@ -53,7 +79,7 @@ fun MainContent(vm: WalletViewModel = WalletViewModel()) {
                     vm,
                     onCryptoClick = {}
                 )*/
-                AppNavigation()
+                AppNavigation(homeVm = vm)
                 BottomNavigationBar(
                     onSwitchCryptoClick = {},
                     onSummaryCLick = {},
@@ -62,10 +88,4 @@ fun MainContent(vm: WalletViewModel = WalletViewModel()) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    MainContent()
 }

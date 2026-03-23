@@ -1,4 +1,6 @@
 
+import com.example.cryptotracker.data.local.CryptoDao
+import com.example.cryptotracker.data.local.toEntity
 import com.example.cryptotracker.data.remote.dto.crypto.toDomainModel
 import com.example.cryptotracker.data.remote.dto.detail.toDomainModel
 import com.example.cryptotracker.domain.model.CryptoDetail
@@ -6,7 +8,8 @@ import kotlinx.coroutines.delay
 import retrofit2.HttpException
 
 class RemoteCryptoDataSource(
-    private val apiService: CoinGeckoTokensService
+    private val apiService: CoinGeckoTokensService,
+    val cryptoDao: CryptoDao
 ) {
 
     suspend fun getCryptos(): Result<List<Crypto>> {
@@ -18,6 +21,9 @@ class RemoteCryptoDataSource(
             try {
                 val dtos = this.apiService.getCryptos()
                 val crypto = dtos.map { it.toDomainModel() }
+                // Save data in local database
+                cryptoDao.insertAll(crypto.map { it.toEntity() })
+
                 return Result.success(crypto)
             } catch (e: HttpException) {
                 if (e.code() == 429) {

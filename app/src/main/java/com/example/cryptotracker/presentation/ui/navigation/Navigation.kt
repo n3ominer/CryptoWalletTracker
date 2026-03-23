@@ -13,7 +13,7 @@ import com.example.cryptotracker.presentation.ui.screen.home.HomeScreen
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController(),
-    homeVm: WalletViewModel = WalletViewModel()
+    homeVm: WalletViewModel
 ) {
 
     NavHost(
@@ -45,7 +45,8 @@ fun AppNavigation(
                 nameParam,
                 {
                     navController.popBackStack()
-                }
+                },
+                viewModel = homeVm
             )
         }
     }

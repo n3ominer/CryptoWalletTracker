@@ -48,7 +48,7 @@ import com.example.cryptotracker.presentation.ui.screen.home.composables.WalletH
 
 @Composable
 fun HomeScreen(
-    viewModel: WalletViewModel = WalletViewModel(),
+    viewModel: WalletViewModel,
     // TP 2 --> Gestion de Navigation
     onCryptoClick: (String) -> Unit
 ) {
@@ -217,24 +217,3 @@ fun CryptoItem(
 }
 
 
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF8E24AA), // Violet foncé
-                        Color(0xFFBA68C8)  // Violet clair
-                    )
-                )
-            ),
-        color = Color.Transparent
-    ) {
-        HomeScreen(WalletViewModel() , {})
-    }
-}
