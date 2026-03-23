@@ -59,5 +59,8 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
 
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    // Retrofit - HTTP client
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.coil.kt.coil.compose)
 }

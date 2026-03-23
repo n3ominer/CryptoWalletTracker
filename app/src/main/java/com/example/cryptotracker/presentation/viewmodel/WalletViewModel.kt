@@ -11,7 +11,12 @@ import kotlinx.coroutines.launch
 
 class WalletViewModel(
     // TODO: Remplacer par de l'injection de dépendenances
-    val getWalletCryptosUseCase: GetWalletCryptosUseCase = GetWalletCryptosUseCase(WalletRepositoryImpl())
+    val getWalletCryptosUseCase: GetWalletCryptosUseCase =
+        GetWalletCryptosUseCase(
+            WalletRepositoryImpl(
+                remote = RemoteCryptoDataSource(CoinGeckoApiClient.coinGeckoCryptoService)
+            )
+        )
 ): ViewModel() {
 
     // UI State privé R+W
@@ -32,7 +37,7 @@ class WalletViewModel(
         _walletUiState.value = WalletStateUi.Loading
 
         viewModelScope.launch {
-            delay(5000)
+            //delay(5000)
 
             // Récupère le resultat
             val result: WalletStateUi = getWalletCryptosUseCase()

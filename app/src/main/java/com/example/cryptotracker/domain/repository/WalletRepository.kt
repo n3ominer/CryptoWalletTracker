@@ -5,7 +5,7 @@ import Holding
 import Wallet
 
 interface WalletRepository {
-    fun getWallet(): Wallet
+    suspend fun getWallet(): Wallet
 
     /*
 

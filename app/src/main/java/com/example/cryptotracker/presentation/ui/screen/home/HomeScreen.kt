@@ -99,8 +99,8 @@ fun SuccessContent(
 ) {
     LazyColumn {
         items(
-            getCryptoList(),
-            key = { it.symbol }
+            wallet.holdings.map { it.crypto },
+            key = { it }
         ) { crypto ->
             CryptoItem(crypto, onCryptoClick)
         }
