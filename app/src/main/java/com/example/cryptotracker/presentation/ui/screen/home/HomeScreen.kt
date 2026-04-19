@@ -136,7 +136,7 @@ fun ErrorContent(message: String) {
             Spacer(Modifier.height(10.dp))
 
             Text(
-                "Error",
+                message,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold
             )
