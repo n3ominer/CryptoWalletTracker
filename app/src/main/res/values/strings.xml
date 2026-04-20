@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">CryptoTracker</string>
     <string name="summary_button_in_bottom_nav_bar">Summary button in bottom nav bar</string>
+
+    <!-- Button action row HOME -->
+    <string name="home_header_row_button_receive">Receive</string>
+    <string name="home_header_row_button_send">Send</string>
+    <string name="home_header_row_button_swap">Swap</string>
+    <string name="home_header_row_button_buy">Buy</string>
+
 </resources>

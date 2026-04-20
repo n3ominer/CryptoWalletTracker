@@ -51,8 +51,9 @@ fun HomeScreen(
     viewModel: WalletViewModel,
     // TP 2 --> Gestion de Navigation
     onCryptoClick: (String) -> Unit
+
 ) {
-    val walletUiState: WalletStateUi by viewModel.walletUiState.collectAsState()
+    val walletUiState: WalletStateUi by viewModels()
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(

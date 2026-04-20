@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CryptoTracker</string>
+    <string name="summary_button_in_bottom_nav_bar">Summary button in bottom nav bar</string>
+
+    <!-- Button action row HOME -->
+    <string name="home_header_row_button_receive">Recevoir</string>
+    <string name="home_header_row_button_send">Envoyer</string>
+    <string name="home_header_row_button_swap">Swapper</string>
+    <string name="home_header_row_button_buy">Acheter</string>
+</resources>
