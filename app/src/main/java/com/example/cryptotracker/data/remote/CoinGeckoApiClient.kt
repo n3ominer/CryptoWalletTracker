@@ -24,5 +24,7 @@ object CoinGeckoApiClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // Creer une instance de notre service API
+    // Class implemente l'interface CoinGeckoTokensService
     val coinGeckoCryptoService = retrofit.create(CoinGeckoTokensService::class.java)
 }

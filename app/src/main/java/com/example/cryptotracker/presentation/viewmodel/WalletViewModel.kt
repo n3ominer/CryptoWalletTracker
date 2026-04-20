@@ -37,18 +37,20 @@ class WalletViewModel(
     }
 
     // Fonction de chargement du wallet
-    private fun loadWallet() {
+    fun loadWallet() {
         // Mettre à jour le state de la vue
         _walletUiState.value = WalletStateUi.Loading
 
         viewModelScope.launch {
-            //delay(5000)
+            try {
+                // Récupère le resultat
+                val result: WalletStateUi = getWalletCryptosUseCase()
 
-            // Récupère le resultat
-            val result: WalletStateUi = getWalletCryptosUseCase()
-
-            // Mettre à jour l'état à nouveau avec le nouveau state
-            _walletUiState.value = result
+                // Mettre à jour l'état à nouveau avec le nouveau state
+                _walletUiState.value = result
+            } catch (e: Exception) {
+                _walletUiState.value = WalletStateUi.Error(e.message ?: "Error")
+            }
         }
     }
 
